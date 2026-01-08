@@ -38,4 +38,13 @@ jobs:
       - name: Run verification scripts
         run: |
           python verify_logic.py
-          python verify_refactor.py
+
+      - name: Test model training
+        run: |
+          python -c "
+          from train_model import train_initial_model
+          from config import config
+          config.setup_directories()
+          train_initial_model(config.MODEL_FILE)
+          print('Model training OK')
+          "
