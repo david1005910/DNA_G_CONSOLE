@@ -45,19 +45,134 @@ def parse_metadata(metadata_input):
         if acc_match:
             info['accession'] = acc_match.group(1)
         
-        # Extract virus type
+        # Extract virus type (expanded list)
         if 'Influenza A' in entry_str:
             info['virus_type'] = 'Influenza A'
             # Extract subtype (H9N2, H3N2, etc.)
             subtype_match = re.search(r'\((H\d+N\d+)\)', entry_str)
             if subtype_match:
                 info['subtype'] = subtype_match.group(1)
+        elif 'Influenza B' in entry_str:
+            info['virus_type'] = 'Influenza B'
         elif 'Norovirus' in entry_str:
             info['virus_type'] = 'Norovirus'
             if 'GII' in entry_str:
                 info['subtype'] = 'GII'
+            elif 'GI' in entry_str:
+                info['subtype'] = 'GI'
+        elif 'Dengue virus' in entry_str:
+            info['virus_type'] = 'Dengue'
+            # Extract type (1-4)
+            dengue_match = re.search(r'Dengue virus type (\d)', entry_str)
+            if dengue_match:
+                info['subtype'] = f'Type {dengue_match.group(1)}'
+        elif 'Zika virus' in entry_str:
+            info['virus_type'] = 'Zika'
+        elif 'Chikungunya' in entry_str:
+            info['virus_type'] = 'Chikungunya'
+        elif 'West Nile virus' in entry_str:
+            info['virus_type'] = 'West Nile'
+        elif 'Yellow fever' in entry_str:
+            info['virus_type'] = 'Yellow Fever'
+        elif 'Hepatitis' in entry_str:
+            info['virus_type'] = 'Hepatitis'
+            hep_match = re.search(r'Hepatitis ([A-E])', entry_str)
+            if hep_match:
+                info['subtype'] = hep_match.group(1)
+        elif 'COVID' in entry_str or 'SARS-CoV' in entry_str or 'coronavirus' in entry_str.lower():
+            info['virus_type'] = 'Coronavirus'
+        elif 'RSV' in entry_str or 'Respiratory syncytial' in entry_str:
+            info['virus_type'] = 'RSV'
+        elif 'Rotavirus' in entry_str:
+            info['virus_type'] = 'Rotavirus'
         elif 'Chicken anemia virus' in entry_str:
             info['virus_type'] = 'Chicken anemia virus'
+        elif 'Rabies' in entry_str:
+            info['virus_type'] = 'Rabies'
+        elif 'Ebola' in entry_str:
+            info['virus_type'] = 'Ebola'
+        elif 'HIV' in entry_str:
+            info['virus_type'] = 'HIV'
+        elif 'Papillomavirus' in entry_str or 'papillomavirus' in entry_str:
+            info['virus_type'] = 'Papillomavirus'
+        elif 'respiratory syncytial' in entry_str.lower() or 'RSV' in entry_str:
+            info['virus_type'] = 'RSV'
+        elif 'Morbillivirus' in entry_str or 'distemper' in entry_str.lower():
+            info['virus_type'] = 'Morbillivirus'
+        elif 'parvovirus' in entry_str.lower():
+            info['virus_type'] = 'Parvovirus'
+        elif 'adenovirus' in entry_str.lower():
+            info['virus_type'] = 'Adenovirus'
+        elif 'Mumps' in entry_str or 'Orthorubulavirus' in entry_str:
+            info['virus_type'] = 'Mumps'
+        elif 'Measles' in entry_str:
+            info['virus_type'] = 'Measles'
+        elif 'Enterovirus' in entry_str or 'enterovirus' in entry_str:
+            info['virus_type'] = 'Enterovirus'
+        elif 'Herpes' in entry_str or 'herpes' in entry_str:
+            info['virus_type'] = 'Herpesvirus'
+        elif 'Polyomavirus' in entry_str or 'polyomavirus' in entry_str:
+            info['virus_type'] = 'Polyomavirus'
+        elif 'Astrovirus' in entry_str:
+            info['virus_type'] = 'Astrovirus'
+        elif 'Sapovirus' in entry_str:
+            info['virus_type'] = 'Sapovirus'
+        elif 'Calicivirus' in entry_str:
+            info['virus_type'] = 'Calicivirus'
+        elif 'Picornavirus' in entry_str or 'Rhinovirus' in entry_str:
+            info['virus_type'] = 'Picornavirus'
+        elif 'Metapneumovirus' in entry_str:
+            info['virus_type'] = 'Metapneumovirus'
+        elif 'Parainfluenza' in entry_str:
+            info['virus_type'] = 'Parainfluenza'
+        elif 'Bocavirus' in entry_str:
+            info['virus_type'] = 'Bocavirus'
+        elif 'PRRS' in entry_str or 'reproductive and respiratory syndrome' in entry_str.lower():
+            info['virus_type'] = 'PRRS'
+        elif 'Rotavirus' in entry_str or 'rotavirus' in entry_str:
+            info['virus_type'] = 'Rotavirus'
+        elif 'Circovirus' in entry_str or 'circovirus' in entry_str:
+            info['virus_type'] = 'Circovirus'
+        elif 'Coronavirus' in entry_str or 'coronavirus' in entry_str:
+            info['virus_type'] = 'Coronavirus'
+        elif 'Arenavirus' in entry_str:
+            info['virus_type'] = 'Arenavirus'
+        elif 'Hantavirus' in entry_str:
+            info['virus_type'] = 'Hantavirus'
+        elif 'Lyssavirus' in entry_str:
+            info['virus_type'] = 'Lyssavirus'
+        elif 'Flavivirus' in entry_str:
+            info['virus_type'] = 'Flavivirus'
+        elif 'Alphavirus' in entry_str:
+            info['virus_type'] = 'Alphavirus'
+        elif 'Bunyavirus' in entry_str or 'bunyavirus' in entry_str:
+            info['virus_type'] = 'Bunyavirus'
+        elif 'Deltacoronavirus' in entry_str:
+            info['virus_type'] = 'Deltacoronavirus'
+        elif 'Echovirus' in entry_str or 'echovirus' in entry_str:
+            info['virus_type'] = 'Echovirus'
+        elif 'Norwalk' in entry_str:
+            info['virus_type'] = 'Norovirus'
+        elif 'Foot-and-mouth' in entry_str or 'FMDV' in entry_str:
+            info['virus_type'] = 'FMDV'
+        elif 'Coxsackie' in entry_str or 'coxsackie' in entry_str:
+            info['virus_type'] = 'Coxsackievirus'
+        elif 'Poliovirus' in entry_str or 'polio' in entry_str.lower():
+            info['virus_type'] = 'Poliovirus'
+        elif 'Japanese encephalitis' in entry_str:
+            info['virus_type'] = 'Japanese Encephalitis'
+        elif 'Tick-borne' in entry_str or 'TBEV' in entry_str:
+            info['virus_type'] = 'Tick-borne Encephalitis'
+        elif 'Powassan' in entry_str:
+            info['virus_type'] = 'Powassan'
+        elif 'Marburg' in entry_str:
+            info['virus_type'] = 'Marburg'
+        elif 'Lassa' in entry_str:
+            info['virus_type'] = 'Lassa'
+        elif 'Crimean-Congo' in entry_str or 'CCHF' in entry_str:
+            info['virus_type'] = 'CCHF'
+        elif 'Rift Valley' in entry_str:
+            info['virus_type'] = 'Rift Valley Fever'
         
         # Extract host
         host_patterns = ['chicken', 'human', 'swine', 'duck', 'turkey', 'dove', 'pigeon', 'avian', 'mallard', 'goose']
@@ -72,36 +187,168 @@ def parse_metadata(metadata_input):
             info['year'] = int(year_match.group(1))
         
         # Extract location
-        # Smarter heuristic for Influenza nomenclature
-        # Pattern: (A/Segment1/Segment2/...)
-        loc_match = re.search(r'\(A/([^/]+)/([^/]+)/', entry_str)
-        if loc_match:
-             seg1 = loc_match.group(1)
-             seg2 = loc_match.group(2)
-             
-             is_host = False
-             # sensitive check against known hosts
-             for h in host_patterns:
-                 if h.lower() in seg1.lower():
-                     is_host = True
-                     break
-             
-             if is_host:
-                 info['location'] = seg2
-             else:
-                 info['location'] = seg1
+        # Known hosts/animals to filter out (expanded list)
+        known_hosts = [
+            'chicken', 'human', 'swine', 'duck', 'turkey', 'dove', 'pigeon',
+            'avian', 'mallard', 'goose', 'cat', 'cattle', 'teal', 'environment',
+            'wild bird', 'canine', 'feline', 'equine', 'seal', 'whale', 'mink',
+            'blue-winged', 'northern pintail', 'cinnamon', 'crow', 'robin', 'pelican',
+            'wigeon', 'widgeon', 'eagle', 'owl', 'swan', 'vulture', 'kittiwake',
+            'jay', 'bufflehead', 'eider', 'goldeneye', 'grackle', 'merganser',
+            'raven', 'tern', 'hawk', 'cougar', 'dolphin', 'grebe', 'starling',
+            'flamingo', 'fox', 'gadwall', 'gull', 'scaup', 'shoveler', 'osprey',
+            'peafowl', 'falcon', 'raccoon', 'crane', 'sanderling', 'skunk',
+            'egret', 'sparrow', 'scoter', 'american', 'common', 'great', 'red',
+            'black', 'white', 'northern', 'western', 'bald', 'barn', 'snowy',
+            'trumpeter', 'mute', 'sand', 'sandhill', 'herring', 'glaucous',
+            'rough-legged', 'sharp-shinned', 'red-shouldered', 'red-tailed',
+            'red-breasted', 'white-winged', 'black-legged', 'great horned',
+            'cooper', 'fish', 'european', 'eared', 'lesser', 'peregrine'
+        ]
 
-        # Fallback to hardcoded patterns
+        # US State abbreviation to full name mapping (for map coordinates)
+        us_state_names = {
+            'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
+            'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware',
+            'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
+            'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas',
+            'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
+            'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
+            'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
+            'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York',
+            'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
+            'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
+            'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
+            'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+            'WI': 'Wisconsin', 'WY': 'Wyoming'
+        }
+
+        # Influenza nomenclature: A/Host/Location/ID/Year(Subtype)
+        # or sometimes: A/Location/ID/Year(Subtype)
+        loc_match = re.search(r'\(A/([^/]+)/([^/]+)/([^/]+)/', entry_str)
+        if loc_match:
+            seg1 = loc_match.group(1)
+            seg2 = loc_match.group(2)
+
+            # Check if seg1 is a host
+            is_seg1_host = any(h.lower() in seg1.lower() for h in known_hosts)
+            is_seg2_host = any(h.lower() in seg2.lower() for h in known_hosts)
+
+            if is_seg1_host and not is_seg2_host:
+                candidate = seg2
+            elif not is_seg1_host:
+                candidate = seg1
+            else:
+                candidate = None
+
+            if candidate:
+                # Convert US state abbreviations to full state names
+                if candidate.upper() in us_state_names:
+                    info['location'] = us_state_names[candidate.upper()]
+                elif len(candidate) == 2 and candidate.isupper():
+                    # Unknown 2-letter code, default to USA
+                    info['location'] = 'USA'
+                else:
+                    info['location'] = candidate
+
+        # Fallback to hardcoded patterns (country and state names)
         if not info['location']:
             location_patterns = [
-                'Saudi Arabia', 'New Jersey', 'New York', 'Brazil', 'Egypt',
-                'China', 'USA', 'Korea', 'Japan', 'Vietnam',
-                'Rhode Island', 'California', 'Texas'
+                # US States (full names)
+                ('North Carolina', 'North Carolina'), ('South Carolina', 'South Carolina'),
+                ('North Dakota', 'North Dakota'), ('South Dakota', 'South Dakota'),
+                ('West Virginia', 'West Virginia'), ('New Hampshire', 'New Hampshire'),
+                ('New Jersey', 'New Jersey'), ('New York', 'New York'), ('New Mexico', 'New Mexico'),
+                ('Rhode Island', 'Rhode Island'), ('California', 'California'), ('Texas', 'Texas'),
+                ('Florida', 'Florida'), ('Georgia', 'Georgia'), ('Ohio', 'Ohio'),
+                ('Michigan', 'Michigan'), ('Illinois', 'Illinois'), ('Pennsylvania', 'Pennsylvania'),
+                ('Virginia', 'Virginia'), ('Washington', 'Washington'), ('Arizona', 'Arizona'),
+                ('Massachusetts', 'Massachusetts'), ('Tennessee', 'Tennessee'), ('Indiana', 'Indiana'),
+                ('Missouri', 'Missouri'), ('Wisconsin', 'Wisconsin'), ('Minnesota', 'Minnesota'),
+                ('Colorado', 'Colorado'), ('Maryland', 'Maryland'), ('Alabama', 'Alabama'),
+                ('Kentucky', 'Kentucky'), ('Oregon', 'Oregon'), ('Oklahoma', 'Oklahoma'),
+                ('Connecticut', 'Connecticut'), ('Iowa', 'Iowa'), ('Utah', 'Utah'),
+                ('Nevada', 'Nevada'), ('Arkansas', 'Arkansas'), ('Kansas', 'Kansas'),
+                ('Mississippi', 'Mississippi'), ('Nebraska', 'Nebraska'), ('Idaho', 'Idaho'),
+                ('Hawaii', 'Hawaii'), ('Maine', 'Maine'), ('Montana', 'Montana'),
+                ('Delaware', 'Delaware'), ('Vermont', 'Vermont'), ('Alaska', 'Alaska'),
+                ('Wyoming', 'Wyoming'), ('Louisiana', 'Louisiana'),
+                # Countries
+                ('Saudi Arabia', 'Saudi Arabia'), ('Brazil', 'Brazil'), ('Egypt', 'Egypt'),
+                ('China', 'China'), ('Korea', 'Korea'), ('Japan', 'Japan'), ('Vietnam', 'Vietnam'),
+                ('Thailand', 'Thailand'), ('Indonesia', 'Indonesia'), ('Malaysia', 'Malaysia'),
+                ('Hong Kong', 'Hong Kong'), ('Taiwan', 'Taiwan'), ('India', 'India'),
+                ('Russia', 'Russia'), ('Germany', 'Germany'), ('France', 'France'),
+                ('UK', 'UK'), ('Italy', 'Italy'), ('Spain', 'Spain'),
+                ('Canada', 'Canada'), ('Mexico', 'Mexico'), ('Australia', 'Australia'),
+                ('Singapore', 'Singapore'), ('Philippines', 'Philippines'), ('Argentina', 'Argentina'),
+                ('Colombia', 'Colombia'), ('Peru', 'Peru'), ('Venezuela', 'Venezuela'),
+                ('Chile', 'Chile'), ('Ecuador', 'Ecuador'), ('Bolivia', 'Bolivia'),
+                ('Nigeria', 'Nigeria'), ('South Africa', 'South Africa'), ('Kenya', 'Kenya'),
+                ('Ghana', 'Ghana'), ('Uganda', 'Uganda'), ('Tanzania', 'Tanzania'),
+                ('Pakistan', 'Pakistan'), ('Bangladesh', 'Bangladesh'), ('Nepal', 'Nepal'),
+                ('Sri Lanka', 'Sri Lanka'), ('Myanmar', 'Myanmar'), ('Cambodia', 'Cambodia'),
+                ('Laos', 'Laos'), ('Puerto Rico', 'Puerto Rico'), ('Dominican', 'Dominican Republic'),
+                ('Jamaica', 'Jamaica'), ('Haiti', 'Haiti'), ('Cuba', 'Cuba'),
+                ('Guatemala', 'Guatemala'), ('Honduras', 'Honduras'), ('Nicaragua', 'Nicaragua'),
+                ('Costa Rica', 'Costa Rica'), ('Panama', 'Panama'), ('Ireland', 'Ireland'),
+                ('Netherlands', 'Netherlands'), ('Belgium', 'Belgium'), ('Poland', 'Poland'),
+                ('Sweden', 'Sweden'), ('Norway', 'Norway'), ('Denmark', 'Denmark'),
+                ('Finland', 'Finland'), ('Portugal', 'Portugal'), ('Greece', 'Greece'),
+                ('Turkey', 'Turkey'), ('Israel', 'Israel'), ('Iran', 'Iran'),
+                ('Iraq', 'Iraq'), ('Saudi', 'Saudi Arabia'), ('UAE', 'UAE'),
+                ('Morocco', 'Morocco'), ('Algeria', 'Algeria'), ('Tunisia', 'Tunisia'),
+                ('Ethiopia', 'Ethiopia'), ('Senegal', 'Senegal'), ('Cameroon', 'Cameroon'),
+                ('Congo', 'Congo'), ('Angola', 'Angola'), ('Zimbabwe', 'Zimbabwe'),
+                ('Zambia', 'Zambia'), ('Malawi', 'Malawi'), ('Mozambique', 'Mozambique')
             ]
-            for loc in location_patterns:
-                if loc in entry_str:
-                    info['location'] = loc
+            for pattern, location in location_patterns:
+                if pattern in entry_str:
+                    info['location'] = location
                     break
+
+        # Additional patterns for isolate codes (e.g., CANDEN = Canada Dengue)
+        if not info['location']:
+            isolate_codes = {
+                'CAN': 'Canada', 'USA': 'USA', 'BRA': 'Brazil', 'MEX': 'Mexico',
+                'CHN': 'China', 'JPN': 'Japan', 'KOR': 'Korea', 'THA': 'Thailand',
+                'VNM': 'Vietnam', 'IDN': 'Indonesia', 'MYS': 'Malaysia', 'SGP': 'Singapore',
+                'PHL': 'Philippines', 'IND': 'India', 'PAK': 'Pakistan', 'BGD': 'Bangladesh',
+                'AUS': 'Australia', 'NZL': 'New Zealand', 'GBR': 'UK', 'DEU': 'Germany',
+                'FRA': 'France', 'ITA': 'Italy', 'ESP': 'Spain', 'NLD': 'Netherlands',
+                'RUS': 'Russia', 'EGY': 'Egypt', 'ZAF': 'South Africa', 'NGA': 'Nigeria',
+                'ARG': 'Argentina', 'COL': 'Colombia', 'PER': 'Peru', 'CHL': 'Chile',
+                'PRI': 'Puerto Rico', 'DOM': 'Dominican Republic'
+            }
+            # Try to match isolate codes at word boundaries
+            for code, country in isolate_codes.items():
+                if re.search(rf'\b{code}[A-Z]*\d', entry_str):
+                    info['location'] = country
+                    break
+
+        # Additional "from COUNTRY" pattern (e.g., "from USA")
+        if not info['location']:
+            from_match = re.search(r'from (USA|China|Brazil|Japan|Korea|India|Russia|Germany|France|UK|Canada|Mexico|Australia)', entry_str)
+            if from_match:
+                info['location'] = from_match.group(1)
+
+        # 3-letter country code in isolate name (e.g., /CHN/, /BRA/, /USA/)
+        if not info['location']:
+            code_match = re.search(r'/([A-Z]{2,3})/', entry_str)
+            if code_match:
+                code = code_match.group(1)
+                country_codes = {
+                    'CHN': 'China', 'BRA': 'Brazil', 'USA': 'USA', 'JPN': 'Japan',
+                    'KOR': 'Korea', 'IND': 'India', 'RUS': 'Russia', 'DEU': 'Germany',
+                    'FRA': 'France', 'GBR': 'UK', 'CAN': 'Canada', 'MEX': 'Mexico',
+                    'AUS': 'Australia', 'THA': 'Thailand', 'VNM': 'Vietnam',
+                    'IDN': 'Indonesia', 'MYS': 'Malaysia', 'PHL': 'Philippines',
+                    'SGP': 'Singapore', 'NLD': 'Netherlands', 'IRL': 'Ireland',
+                    'ZAF': 'South Africa', 'EGY': 'Egypt', 'NGA': 'Nigeria',
+                    'ARG': 'Argentina', 'COL': 'Colombia', 'PER': 'Peru'
+                }
+                if code in country_codes:
+                    info['location'] = country_codes[code]
         
         # Extract gene segment
         gene_patterns = ['NS1', 'NS2', 'M1', 'M2', 'NEP', 'VP1', 'RdRp', 'HA', 'NA', 'NP', 'PA', 'PB1', 'PB2']
