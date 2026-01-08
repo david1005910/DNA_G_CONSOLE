@@ -1,0 +1,197 @@
+# filename: src/styles.css
+/* 기본 스타일 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+#root {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* 섹션별 레이아웃 */
+.container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.section {
+    flex: 1;
+    min-width: 300px; /* 최소 너비 설정 */
+    background-color: #fdfefe;
+    border: 1px solid #e0e6e9;
+    border-radius: 6px;
+    padding: 20px;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+.section-full {
+    flex-basis: 100%;
+}
+
+/* 폼 요소 스타일 */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}
+
+textarea, input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    resize: vertical; /* 텍스트 영역 세로 크기 조절 가능 */
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    align-self: flex-start; /* 버튼을 왼쪽으로 정렬 */
+}
+
+button.primary {
+    background-color: #2ecc71; /* 녹색 */
+    color: white;
+}
+button.primary:hover {
+    background-color: #27ae60;
+}
+
+button.secondary {
+    background-color: #3498db; /* 파란색 */
+    color: white;
+}
+button.secondary:hover {
+    background-color: #2980b9;
+}
+
+button.danger {
+    background-color: #e74c3c; /* 빨간색 */
+    color: white;
+}
+button.danger:hover {
+    background-color: #c0392b;
+}
+
+/* 리스트/테이블 스타일 */
+.record-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.record-list li {
+    background-color: #fdfefe;
+    border: 1px solid #e0e6e9;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.record-list li:hover {
+    background-color: #eff4f6;
+}
+
+.record-list li.selected {
+    border-left: 5px solid #3498db;
+    background-color: #e9f5fd;
+}
+
+.record-list-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.record-list-item-header span {
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+.record-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* 상세 정보 스타일 */
+.record-detail dl {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 10px 15px;
+    margin-top: 15px;
+}
+
+.record-detail dt {
+    font-weight: 500;
+    color: #555;
+}
+
+.record-detail dd {
+    margin: 0;
+    word-break: break-all; /* 긴 서열이 줄바꿈 되도록 */
+}
+
+.status-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: white;
+    margin-left: 10px;
+}
+
+.status-tag.alive {
+    background-color: #2ecc71; /* 녹색 */
+}
+
+.status-tag.deceased {
+    background-color: #e74c3c; /* 빨간색 */
+}
+
+.no-records {
+    color: #7f8c8d;
+    text-align: center;
+    padding: 20px;
+    border: 1px dashed #dcdcdc;
+    border-radius: 4px;
+    margin-top: 15px;
+}

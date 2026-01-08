@@ -1,0 +1,15 @@
+# filename: .dockerignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.pytest_cache/
+.idea/
+.vscode/
+*.db
+# ml_models 디렉토리는 빌드 과정에서 생성되므로 제외 (하지만 최종 이미지에는 포함)
+ml_models/

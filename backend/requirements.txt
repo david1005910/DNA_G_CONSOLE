@@ -1,0 +1,8 @@
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+Werkzeug==2.2.2
+python-dotenv
+pydantic
+joblib
+sklearn
+flask

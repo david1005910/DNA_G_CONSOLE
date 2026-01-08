@@ -1,0 +1,14 @@
+# filename: docker-compose.yml
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: dna_api_service
+    ports:
+      - "5001:5001"
+    volumes:
+      # 데이터베이스 파일의 영속성을 위해 호스트와 디렉토리를 공유합니다.
+      # 컨테이너가 재시작되어도 데이터는 보존됩니다.
+      - ./dna_app/database:/app/dna_app/database
+    restart: unless-stopped
