@@ -1,4 +1,4 @@
-# DNA Sequence Classifier & Management System
+# DNA Sequence Classifier & Management System (TEST)
 
 (DNA 서열 분류 및 관리 시스템)
 
