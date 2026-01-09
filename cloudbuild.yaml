@@ -1,0 +1,45 @@
+# filename: cloudbuild.yaml
+# GCP Cloud Build 설정 파일
+# 사용법: gcloud builds submit --config cloudbuild.yaml .
+
+steps:
+  # Step 1: Docker 이미지 빌드
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:${SHORT_SHA}'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:latest'
+      - '.'
+
+  # Step 2: Artifact Registry에 이미지 푸시 (태그: commit SHA)
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:${SHORT_SHA}'
+
+  # Step 3: Artifact Registry에 이미지 푸시 (태그: latest)
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:latest'
+
+# 빌드된 이미지 목록
+images:
+  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:${SHORT_SHA}'
+  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:latest'
+
+# 사용자 정의 변수 (기본값)
+substitutions:
+  _REGION: 'asia-northeast3'           # 서울 리전 (필요시 변경)
+  _REPOSITORY: 'dna-g-console'         # Artifact Registry 저장소 이름
+  _IMAGE_NAME: 'dna-api'               # Docker 이미지 이름
+
+# 빌드 옵션
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'          # 빠른 빌드를 위한 머신 타입
+
+# 빌드 타임아웃 (모델 학습 시간 고려)
+timeout: '1800s'  # 30분
