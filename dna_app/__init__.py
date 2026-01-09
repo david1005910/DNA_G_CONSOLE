@@ -50,4 +50,9 @@ def create_app():
     def serve_src(filename):
         return send_from_directory(os.path.join(app.static_folder, 'src'), filename)
 
+    # Favicon route to suppress 404 error
+    @app.route('/favicon.ico')
+    def favicon():
+        return '', 204
+
     return app

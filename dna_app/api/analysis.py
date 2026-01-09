@@ -520,7 +520,7 @@ def combined_insights():
                     seq_key = seq[:50] if len(seq) > 50 else seq
                     if seq_key not in predictions:
                         pred_result = ml_service.predict(seq)
-                        predictions[seq_key] = pred_result.get('predicted_class', 'Unknown')
+                        predictions[seq_key] = pred_result.get('predicted_type', 'Unknown')
             except Exception as pred_err:
                 # If prediction fails, skip ML classification
                 predictions = {}
